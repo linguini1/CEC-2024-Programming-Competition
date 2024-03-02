@@ -1,4 +1,5 @@
 import math
+from logic.drill import Drill, MaxStrat
 from logic.resource import (
     average_resource_values,
     load_all_resources,
@@ -51,3 +52,11 @@ for oil, coral in zip(oils, corals):
     mask_preserved_tiles(oil, coral)
 
 average_oil = average_resource_values(oils, ResourceType.OIL)
+
+drill = Drill(0, 0, strategy=MaxStrat())
+print(drill)
+drill.collect(oils[0])
+print(drill)
+drill.move(oils[1])
+drill.collect(oils[1])
+print(drill)
