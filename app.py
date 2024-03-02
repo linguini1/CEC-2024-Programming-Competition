@@ -1,7 +1,15 @@
 from flask import Flask, render_template
-from logic.resource import ResourceMap, load_all_resources, ResourceType, serialize_resource
+from logic.resource import (
+    ResourceMap,
+    load_all_resources,
+    ResourceType,
+    mask_land_resources,
+    mask_preserved_tiles,
+    serialize_resource,
+)
 from logic.world import WORLD_HEIGHT, WORLD_WIDTH, World, WorldTile, load_world
 from logic.drill import Drill, MaxStrat
+import copy
 
 PORT: int = 8000
 
@@ -19,6 +27,16 @@ resource_listing: dict[str, list[ResourceMap]] = {
     ResourceType.SHIPWRECK.value.lower(): load_all_resources("./data/ship*", ResourceType.SHIPWRECK),
     ResourceType.ENDANGERED.value.lower(): load_all_resources("./data/species*", ResourceType.ENDANGERED),
 }
+
+# Mask all resources by land (drill can't go there)
+for resources in resource_listing.values():
+    for map in resources:
+        mask_land_resources(map, world_map)
+
+# Reduce perceived value of oil by how much coral is being trampled
+oil_preserved = copy.deepcopy(resource_listing["oil"])
+for oil, coral in zip(oil_preserved, resource_listing["coral"]):
+    mask_preserved_tiles(oil, coral)
 
 drill = Drill(0, 0, MaxStrat())
 
@@ -47,7 +65,7 @@ def world():
 
 
 @app.route("/api/<resource>/<day>", methods=["GET"])
-def resources(resource: str, day: str):
+def resources_api(resource: str, day: str):
     """Provides X and Y coordinates for all resource types on a given day."""
     return serialize_resource(resource_listing[resource][int(day) - 1])
 
@@ -59,11 +77,11 @@ def drill_position(day: str):
     index = int(day) - 1
 
     if index > 0:
-        drill.move(resource_listing["oil"][index])
+        drill.move(oil_preserved[index])  # Move based on perceived value of oil
     else:
         drill = Drill(0, 0, MaxStrat())
 
-    drill.collect(resource_listing["oil"][index])
+    drill.collect(resource_listing["oil"][index])  # Collect based on actual value of oil
     return drill.serialize()
 
 
