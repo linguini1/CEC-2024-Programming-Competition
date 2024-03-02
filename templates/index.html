@@ -49,9 +49,10 @@
                         }
 
                         // All API endpoints for fetching
-                        var WORLD_URL = {{url_for("world") | tojson}};
-                        var OIL_URL = {{url_for("resources_api", resource = "oil", day = "1") | tojson}};
-                        var CORAL_URL = {{url_for("resources_api", resource = "coral", day = "1") | tojson}}
+                        var WORLD_URL = {{url_for("world") | tojson }};
+                        var OIL_URL = {{url_for("resources_api", resource = "oil", day = "1") | tojson }};
+                        var CORAL_URL = {{url_for("resources_api", resource = "coral", day = "1") | tojson }}
+                        var DRILL_URL = {{url_for("drill_position", day = "1") | tojson }}
 
                         const MAX_DAYS = 30; // The maximum number of days
                         var day = 0; // The current day for the simulation
@@ -74,6 +75,14 @@
                                         }
                                     })
                                 })
+                        }
+
+                        async function draw_drill_get_stats(day) {
+                            await fetch(DRILL_URL.replace("1", day.toString())).then((response) => {
+                                response.json().then(drill => {
+                                    draw_xy(drill.x, drill.y, "red", 1);
+                                })
+                            })
                         }
 
                         async function draw_coral(day) {
@@ -103,6 +112,7 @@
                             draw_land_and_water();
                             draw_oil(day);
                             draw_coral(day);
+                            draw_drill_get_stats(day);
                         }
 
                         next_day();
