@@ -1,16 +1,18 @@
 import csv
 from dataclasses import dataclass
 from enum import StrEnum
-from typing import TypeAlias
+from typing import TypeAlias, Optional
 
 
 class ResourceType(StrEnum):
-    """Possible resource types that can be extracted from the map."""
+    """Possible resource types on the map that can be preserved or exploited."""
 
     OIL = "Oil"
     HELIUM = "Helium"
     PRECIOUS_METALS = "Metals"
     SHIPWRECKS = "Shipwreck"
+    CORAL = "Coral"
+    ENDANGERED = "Endangered"
 
 
 @dataclass
@@ -27,7 +29,7 @@ class Resource:
     __repr__ = __str__
 
 
-ResourceMap: TypeAlias = list[list[Resource]]  # Defines the resource map as a grid of resources
+ResourceMap: TypeAlias = list[list[Optional[Resource]]]  # Defines the resource map as a grid of resources
 
 
 def load_resource(filepath: str, rtype: ResourceType) -> ResourceMap:
@@ -40,7 +42,7 @@ def load_resource(filepath: str, rtype: ResourceType) -> ResourceMap:
         A 100x100 2D array containing resources at their respective locations.
     """
 
-    map: ResourceMap = [[None for _ in range(100)] for _ in range(100)]  # type: ignore
+    map: ResourceMap = [[None for _ in range(100)] for _ in range(100)]
 
     with open(filepath, "r") as file:
         reader = csv.reader(file)
