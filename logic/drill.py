@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from typing import Any, TypeAlias
+import random
 from logic.resource import Resource, ResourceMap
 from abc import ABC, abstractmethod
 from logic.world import WORLD_HEIGHT, WORLD_WIDTH
@@ -40,6 +41,22 @@ class MaxStrat(Strategy):
                 max_coord = coords
 
         return max_coord
+
+
+class RandomStrat(Strategy):
+    """Picks a random next move in the set of neighbours."""
+
+    def next(self, neighbourhood: Neighbourhood) -> Coord:
+        """
+        Returns random coordinates from the neighbourhood of moves.
+        Args:
+            neighbourhood: The neighbourhood to chose a move from.
+        Returns:
+            The coordinate that the drill should move to.
+        """
+
+        coords, _ = random.choice(neighbourhood)
+        return coords
 
 
 @dataclass
