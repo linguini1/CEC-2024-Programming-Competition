@@ -1,34 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rundle Retrievers</title>
     <link rel="stylesheet" href="static/index.css" />
     <link rel="stylesheet" href="static/global.css" />
-    <script src="sketch.js"></script>
 </head>
+
 <body>
+    <canvas id="grid" width="1000px" height="1000px" style="border:1px solid #00ff00"></canvas>
     <main>
         <div class="main-container">
-          <div class="grid-box">
+            <div class="grid-box">
+            </div>
 
-          </div>
-  
-          <div class="data-box">
-            <div class="logo-box">
-              <p>Rundle Retrivers</p>
+            <script type="text/javascript">
+
+                function map_xy(x, y) {
+                    return [x * tile_width, y * tile_width];
+                }
+
+                function draw_xy(x, y) {
+                    var mapped = map_xy(x, y);
+                    ctx.strokeStyle = "#000000";
+                    ctx.fillStyle = "#FF0000";
+                    ctx.fillRect(mapped[0], mapped[1], tile_width, tile_height);
+                }
+
+                const width = 100;
+                const height = 100;
+                const grid_width = 1000;
+                const grid_height = 1000;
+                const tile_width = grid_width / width;
+                const tile_height = grid_height / height;
+
+                let canvas = document.getElementById("grid");
+                let ctx = canvas.getContext("2d");
+
+                ctx.lineWidth = 1;
+                ctx.strokeStyle = "#000000";
+                ctx.fillStyle = "#FF0000";
+
+                for (var y = 0; y < height; y++) {
+                    for (var x = 0; x < width; x++) {
+                        draw_xy(x, y);
+                    }
+                }
+            </script>
+
+            <div class="data-box">
+                <div class="logo-box">
+                    <p>Rundle Retrivers</p>
+                </div>
+
+                <div class="resource-info">
+                    <p>Resource Board</p>
+                </div>
+
+                <div class="buttons-box">
+                    <button>Next Day</button>
+                </div>
             </div>
-  
-            <div class="resource-info">
-              <p>Resource Board</p>
-            </div>
-  
-            <div class="buttons-box">
-              <button>Next Day</button>
-            </div>
-          </div>
         </div>
 </body>
-</html>
 
+</html>
