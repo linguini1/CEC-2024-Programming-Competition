@@ -89,9 +89,12 @@ class Drill:
                 if nx > WORLD_WIDTH or ny > WORLD_HEIGHT:
                     continue
 
-                # Don't include tiles that cannot be moved to to collect resources from
-                if resources[ny][nx] is not None:
-                    neighbourhood.append(((nx, ny), resources[ny][nx]))
+                try:
+                    # Don't include tiles that cannot be moved to to collect resources from
+                    if resources[ny][nx] is not None:
+                        neighbourhood.append(((nx, ny), resources[ny][nx]))
+                except IndexError:
+                    continue
 
         return neighbourhood
 

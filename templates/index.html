@@ -78,12 +78,28 @@
                         }
 
                         async function draw_drill_get_stats(day) {
-                            let drill = await fetch(DRILL_URL.replace("1", day.toString())).then((response) => {
+                            let drills = await fetch(DRILL_URL.replace("1", day.toString())).then((response) => {
                                 return response.json();
                             });
-                            draw_xy(drill.x, drill.y, "red", 1);
-                            document.getElementById("oil-collected").textContent = `Oil collected: ${drill.collected.toFixed(2)}`;
-                            document.getElementById("coral-destroyed").textContent = `Coral reef destroyed: ${drill.destroyed.toFixed(2)}`;
+
+                            // Draw all drills
+                            for (let i = 0; i < drills.length; i++) {
+                                draw_xy(drills[i].x, drills[i].y, "red", 1);
+                            }
+
+                            // Write summarized stats
+                            var oil_collected = 0;
+                            for (let i = 0; i < drills.length; i++) {
+                                oil_collected += drills[i].collected;
+                            }
+
+                            var coral_destroyed = 0;
+                            for (let i = 0; i < drills.length; i++) {
+                                coral_destroyed += drills[i].destroyed;
+                            }
+
+                            document.getElementById("oil-collected").textContent = `Oil collected: ${oil_collected.toFixed(2)}`;
+                            document.getElementById("coral-destroyed").textContent = `Coral reef destroyed: ${coral_destroyed.toFixed(2)}`;
 
                         }
 
@@ -165,7 +181,7 @@
                     <button class="next-btn" onclick="next_day()">Next Day</button>
                 </div>
 
-                
+
             </div>
         </div>
 </body>
