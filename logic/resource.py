@@ -3,8 +3,10 @@ import glob
 import re
 from dataclasses import dataclass
 from enum import StrEnum
-from typing import TypeAlias, Optional
+from typing import TypeAlias, Optional, Any
 from logic.world import World, WorldTile, WORLD_WIDTH, WORLD_HEIGHT
+
+JSON: TypeAlias = dict[str, Any]
 
 
 class ResourceType(StrEnum):
@@ -12,8 +14,8 @@ class ResourceType(StrEnum):
 
     OIL = "Oil"
     HELIUM = "Helium"
-    PRECIOUS_METALS = "Metals"
-    SHIPWRECKS = "Shipwreck"
+    PRECIOUS_METALS = "Metal"
+    SHIPWRECK = "Shipwreck"
     CORAL = "Coral"
     ENDANGERED = "Endangered"
 
@@ -165,3 +167,14 @@ def average_resource_values(resource_series: list[ResourceMap], rtype: ResourceT
                 average_resource[y][x] = Resource(rtype, sum / len(resource_series))
 
     return average_resource
+
+
+def serialize_resource(resource: ResourceMap) -> list[JSON]:
+    """Serializes a resource map into its x, y coordinates."""
+
+    coords = []
+    for x in range(WORLD_WIDTH):
+        for y in range(WORLD_HEIGHT):
+            if resource[x][y] is not None:
+                coords.append({"x": x, "y": y})
+    return coords
