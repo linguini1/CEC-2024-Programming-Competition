@@ -43,10 +43,17 @@ def world():
     return {"land": land, "water": water}
 
 
-@app.route("/api/<resource>/<day>")
+@app.route("/api/<resource>/<day>", methods=["GET"])
 def resources(resource: str, day: str):
     """Provides X and Y coordinates for all resource types on a given day."""
     return serialize_resource(resource_listing[resource][int(day) - 1])
+
+
+@app.route("/api/drill/<day>", methods=["GET"])
+def drill_position(day: str):
+    """Gets the X and Y coordinates of all drill positions at a specific day."""
+    index = int(day) - 1
+    return 404
 
 
 if __name__ == "__main__":
