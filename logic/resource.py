@@ -175,6 +175,6 @@ def serialize_resource(resource: ResourceMap) -> list[JSON]:
     coords = []
     for x in range(WORLD_WIDTH):
         for y in range(WORLD_HEIGHT):
-            if resource[x][y] is not None:
+            if resource[y][x] is not None:
                 coords.append({"x": x, "y": y})
     return coords
