@@ -2,6 +2,7 @@ import csv
 from dataclasses import dataclass
 from enum import StrEnum
 from typing import TypeAlias, Optional
+from logic.world import World, WorldTile, WORLD_WIDTH, WORLD_HEIGHT
 
 
 class ResourceType(StrEnum):
@@ -42,7 +43,7 @@ def load_resource(filepath: str, rtype: ResourceType) -> ResourceMap:
         A 100x100 2D array containing resources at their respective locations.
     """
 
-    map: ResourceMap = [[None for _ in range(100)] for _ in range(100)]
+    map: ResourceMap = [[None for _ in range(WORLD_WIDTH)] for _ in range(WORLD_HEIGHT)]
 
     with open(filepath, "r") as file:
         reader = csv.reader(file)
@@ -61,6 +62,21 @@ def load_resource(filepath: str, rtype: ResourceType) -> ResourceMap:
             y = int(y)
             value = float(value)
 
-            map[x][y] = Resource(rtype, value)
+            map[y][x] = Resource(rtype, value)
 
     return map
+
+
+def mask_resource(resources: ResourceMap, world: World) -> None:
+    """
+    Remove any resources from the resource map that fall on land tiles, as they cannot be moved to. This will modify the
+    original resource map.
+    Args:
+        resources: The resource map to be masked.
+        world: The world layout to use to mask the resource map.
+    """
+
+    for x in range(WORLD_WIDTH):
+        for y in range(WORLD_HEIGHT):
+            if world[y][x] == WorldTile.LAND:
+                resources[y][x] = None

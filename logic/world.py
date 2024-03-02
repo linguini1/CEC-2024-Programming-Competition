@@ -3,6 +3,11 @@ from typing import TypeAlias
 import csv
 
 
+# World dimensions
+WORLD_WIDTH: int = 100
+WORLD_HEIGHT: int = 100
+
+
 class WorldTile(IntEnum):
     """Represents the types of tiles that can be encountered in the world map."""
 
@@ -23,7 +28,7 @@ def load_world(filepath: str) -> World:
     """
 
     # Create empty world map
-    world: World = [[None for _ in range(100)] for _ in range(100)]
+    world: World = [[None for _ in range(WORLD_WIDTH)] for _ in range(WORLD_HEIGHT)]
 
     with open(filepath, "r") as file:
         reader = csv.reader(file)
@@ -37,6 +42,6 @@ def load_world(filepath: str) -> World:
             y = int(y)
             value = WorldTile(int(value))  # Value is represented as enum states
 
-            world[x][y] = value
+            world[y][x] = value
 
     return world
