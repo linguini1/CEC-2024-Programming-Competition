@@ -57,6 +57,7 @@
                         const MAX_DAYS = 30; // The maximum number of days
                         var day = 0; // The current day for the simulation
 
+                        // Canvas information
                         const canvas = document.getElementById("grid");
                         let ctx = canvas.getContext("2d");
                         ctx.lineWidth = 1;
@@ -81,6 +82,7 @@
                                 return response.json();
                             });
                             draw_xy(drill.x, drill.y, "red", 1);
+                            document.getElementById("oil-collected").textContent = `Oil collected: ${drill.collected.toFixed(2)}`;
                         }
 
                         async function draw_coral(day) {
@@ -109,6 +111,7 @@
                             await draw_oil(day);
                             await draw_coral(day);
                             await draw_drill_get_stats(day);
+                            document.getElementById("which-day").textContent = `Day ${day}`;
                         }
 
                         next_day();
@@ -127,7 +130,8 @@
 
                 <div class="resource-info">
                     <p>Resource Board</p>
-
+                    <p id="which-day">Day: 1</p>
+                    <p id="oil-collected">Oil collected: 0</p>
                 </div>
 
                 <div class="buttons-box">
