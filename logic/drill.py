@@ -1,11 +1,11 @@
 from dataclasses import dataclass
-from typing import TypeAlias
+from typing import Any, TypeAlias
 from logic.resource import Resource, ResourceMap
 from abc import ABC, abstractmethod
-
 from logic.world import WORLD_HEIGHT, WORLD_WIDTH
 
 
+JSON: TypeAlias = dict[str, Any]
 Coord: TypeAlias = tuple[int, int]  # (x,y) coordinates
 Neighbourhood: TypeAlias = list[tuple[Coord, Resource]]
 
@@ -96,3 +96,7 @@ class Drill:
             resources: The resource map for collecting resources from.
         """
         self.collected += resources[self.y][self.x].value  # type: ignore
+
+    def serialize(self) -> JSON:
+        """Serializes the drill into JSON data."""
+        return {"x": self.x, "y": self.y, "collected": self.collected}

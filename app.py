@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from logic.resource import ResourceMap, load_all_resources, ResourceType, serialize_resource
 from logic.world import WORLD_HEIGHT, WORLD_WIDTH, World, WorldTile, load_world
+from logic.drill import Drill, MaxStrat
 
 PORT: int = 8000
 
@@ -18,6 +19,8 @@ resource_listing: dict[str, list[ResourceMap]] = {
     ResourceType.SHIPWRECK.value.lower(): load_all_resources("./data/ship*", ResourceType.SHIPWRECK),
     ResourceType.ENDANGERED.value.lower(): load_all_resources("./data/species*", ResourceType.ENDANGERED),
 }
+
+drill = Drill(0, 0, MaxStrat())
 
 
 @app.route("/")
@@ -52,8 +55,16 @@ def resources(resource: str, day: str):
 @app.route("/api/drill/<day>", methods=["GET"])
 def drill_position(day: str):
     """Gets the X and Y coordinates of all drill positions at a specific day."""
+    global drill
     index = int(day) - 1
-    return 404
+
+    if index > 0:
+        drill.move(resource_listing["oil"][index])
+    else:
+        drill = Drill(0, 0, MaxStrat())
+
+    drill.collect(resource_listing["oil"][index])
+    return drill.serialize()
 
 
 if __name__ == "__main__":
