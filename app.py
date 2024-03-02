@@ -88,4 +88,4 @@ def drill_position(day: str):
 
 
 if __name__ == "__main__":
-    app.run(port=PORT, debug=True)
+    app.run(port=PORT)
