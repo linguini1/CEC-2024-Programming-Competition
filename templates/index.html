@@ -14,14 +14,14 @@
     <main>
         <div class="main-container">
             <div class="grid-box">
-                <canvas id="grid" width="600px" height="600px" style="border:4px solid #000">
+                <canvas id="grid" width="650px" height="650px" style="border:3px solid #000">
                     <script type="text/javascript">
 
                         // Calculations for the width and height of the grid and tiles.
                         const width = 100;
                         const height = 100;
-                        const grid_width = 600;
-                        const grid_height = 600;
+                        const grid_width = 650;
+                        const grid_height = 650;
                         const tile_width = grid_width / width;
                         const tile_height = grid_height / height;
 
@@ -83,6 +83,8 @@
                             });
                             draw_xy(drill.x, drill.y, "red", 1);
                             document.getElementById("oil-collected").textContent = `Oil collected: ${drill.collected.toFixed(2)}`;
+                            document.getElementById("coral-destroyed").textContent = `Coral reef destroyed: ${drill.destroyed.toFixed(2)}`;
+
                         }
 
                         async function draw_coral(day) {
@@ -132,10 +134,35 @@
                     <p>Resource Board</p>
                     <p id="which-day">Day: 1</p>
                     <p id="oil-collected">Oil collected: 0</p>
+                    <p id="coral-destroyed">Coral Reef destroyed: 0</p>
                 </div>
 
                 <div class="buttons-box">
                     <button class="next-btn" onclick="next_day()">Next Day</button>
+                </div>
+
+                <div class="legend">
+                    <p>Legend</p>
+                    <li class="Leg-item">
+                        <span class="legend-box" style="background-color:#f5f5dc;"></span>
+                        <span class="legend-label">Land</span>
+                    </li>
+                    <li class="Leg-item">
+                        <span class="legend-box" style="background-color:blue;"></span>
+                        <span class="legend-label">Water</span>
+                    </li>
+                    <li class="Leg-item">
+                        <span class="legend-box" style="background-color:red;"></span>
+                        <span class="legend-label">Rig</span>
+                    </li>
+                    <li class="Leg-item">
+                        <span class="legend-box" style="background-color:pink;"></span>
+                        <span class="legend-label">Coral Reef</span>
+                    </li>
+                    <li class="Leg-item">
+                        <span class="legend-box" style="background-color:black;"></span>
+                        <span class="legend-label">Oil</span>
+                    </li>
                 </div>
             </div>
         </div>

@@ -82,6 +82,8 @@ def drill_position(day: str):
         drill = Drill(0, 0, MaxStrat())
 
     drill.collect(resource_listing["oil"][index])  # Collect based on actual value of oil
+    drill.destroy(resource_listing["coral"][index])  # Collect the value of the destroyed coral reef
+
     return drill.serialize()
 
 

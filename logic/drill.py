@@ -65,6 +65,7 @@ class Drill:
     y: int
     strategy: Strategy
     collected: float = 0
+    destroyed: float = 0
 
     def get_neighbourhood(self, resources: ResourceMap) -> Neighbourhood:
         """
@@ -108,12 +109,22 @@ class Drill:
 
     def collect(self, resources: ResourceMap) -> None:
         """
-        Collects the current resource under the drill.
+        Collects the current obtained resource under the drill.
         Args:
             resources: The resource map for collecting resources from.
         """
         self.collected += resources[self.y][self.x].value  # type: ignore
 
+    def destroy(self, resources: ResourceMap) -> None:
+        """
+        Destroys the current preserved resource under the drill.
+        Args:
+            resources: The resource map for collecting resources from.
+        """
+        
+        if (resources[self.y] != None and resources[self.x] != None):
+            self.destroyed += resources[self.y][self.x].value
+
     def serialize(self) -> JSON:
         """Serializes the drill into JSON data."""
-        return {"x": self.x, "y": self.y, "collected": self.collected}
+        return {"x": self.x, "y": self.y, "collected": self.collected, "destroyed":self.destroyed}
