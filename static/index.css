@@ -7,42 +7,30 @@ body {
 .main-container {
   display: flex;
   flex-direction: row;
-  margin-top: 5%;
-  margin-bottom: 5%;
+  justify-content: center;
+  padding: 8em;
 }
 
 .grid-box {
-  border-radius: 1px;
-  padding: 2%;
-  margin: 2%;
-  width: 45%;
-
+  border-radius: 5px;
   display: flex;
   flex-direction: row;
   justify-content: center;
-}
-
-#grid {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  border: 1px solid #000;
-  border-radius: 1px;
+  margin-right: 1em;
 }
 
 .data-box {
   background-color: #424769;
-  border-radius: 1px;
-  padding: 2%;
-  margin: 2%;
-  width: 45%;
-  border: 5px solid #000;
+  border-radius: 5px;
+  border: 3px solid #000;
+  width: 400px;
+  height: 650px;
+  padding: 10px;
 }
 
 .logo-box {
   display: flex;
   flex-direction: row;
-  width: 100%;
   font-size: 1.5em;
   justify-content: center;
 }
@@ -54,9 +42,7 @@ body {
 .resource-info {
   background-color: #7077a1;
   border-radius: 2px;
-  padding: 1%;
-  margin: 1%;
-  box-shadow: 5px 2px 2px #000;
+  box-shadow: 2px 2px 2px #000;
 }
 
 .resource-info p {
@@ -71,8 +57,6 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  padding: 1%;
-  margin: 1%;
 }
 
 .next-btn {
@@ -89,5 +73,6 @@ body {
 }
 
 .next-btn:hover {
-  bacolor: #2d3250;
+  background-color: #2d3250;
+  cursor: pointer;
 }
