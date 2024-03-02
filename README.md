@@ -9,14 +9,13 @@
 - Hamnah Quereshi
 - Hetarthi Soni
 
-## Installation
+## Requirements
+- Python 3.11
+
+All requirements are stated above, but you can also see them in the [requirements.txt]() file.
 
 ## Quickstart
 
 ## Tools & Technologies
-<img alt="Python" src="https://img.shields.io/badge/-Python-ffbc03?&logo=Python&style=for-the-badge" />
-<img alt="Javascript" src="https://img.shields.io/badge/Javascript-f7df1e?style=for-the-badge&logo=Javascript&logoColor=black">
-<img alt="HTML" src="https://img.shields.io/badge/HTML-F05032?style=for-the-badge&logo=html5&logoColor=white">
-<img alt="CSS" src="https://img.shields.io/badge/CSS-46a2f1?style=for-the-badge&logo=css3&logoColor=white">
-
+<img alt="Python" src="https://img.shields.io/badge/-Python-ffbc03?&logo=Python&style=for-the-badge" /> <img alt="Javascript" src="https://img.shields.io/badge/Javascript-f7df1e?style=for-the-badge&logo=Javascript&logoColor=black"> <img alt="HTML" src="https://img.shields.io/badge/HTML-F05032?style=for-the-badge&logo=html5&logoColor=white"> <img alt="CSS" src="https://img.shields.io/badge/CSS-46a2f1?style=for-the-badge&logo=css3&logoColor=white">  
 <img alt="Flask" src="https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white">
