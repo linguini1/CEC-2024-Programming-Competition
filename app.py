@@ -15,7 +15,7 @@ def home():
     return render_template("index.html")
 
 
-@app.route("/api/world", METHODS=["GET"])
+@app.route("/api/world", methods=["GET"])
 def world():
     land = []
     water = []
