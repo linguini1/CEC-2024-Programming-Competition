@@ -121,10 +121,10 @@ class Drill:
         Args:
             resources: The resource map for collecting resources from.
         """
-        
-        if (resources[self.y] != None and resources[self.x] != None):
-            self.destroyed += resources[self.y][self.x].value
+
+        if resources[self.y][self.x] is not None:
+            self.destroyed += resources[self.y][self.x].value  # type: ignore
 
     def serialize(self) -> JSON:
         """Serializes the drill into JSON data."""
-        return {"x": self.x, "y": self.y, "collected": self.collected, "destroyed":self.destroyed}
+        return {"x": self.x, "y": self.y, "collected": self.collected, "destroyed": self.destroyed}
