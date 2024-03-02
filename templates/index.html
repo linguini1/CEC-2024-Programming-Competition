@@ -21,19 +21,20 @@
                             return [x * tile_width, y * tile_width];
                         }
         
-                        function draw_xy(x, y) {
+                        function draw_xy(x, y, colour) {
                             var mapped = map_xy(x, y);
                             ctx.strokeStyle = "#000000";
-                            ctx.fillStyle = "#7077a1";
+                            ctx.fillStyle = colour;
                             ctx.fillRect(mapped[0], mapped[1], tile_width, tile_height);
                         }
         
                         const width = 100;
                         const height = 100;
-                        const grid_width = 1000;
-                        const grid_height = 1000;
+                        const grid_width = 650;
+                        const grid_height = 600;
                         const tile_width = grid_width / width;
                         const tile_height = grid_height / height;
+                        var API_URL = {{url_for("world") | tojson}};
         
                         let canvas = document.getElementById("grid");
                         let ctx = canvas.getContext("2d");
@@ -41,12 +42,27 @@
                         ctx.lineWidth = 1;
                         ctx.strokeStyle = "#000000";
                         ctx.fillStyle = "#FF0000";
-        
-                        for (var y = 0; y < height; y++) {
-                            for (var x = 0; x < width; x++) {
-                                draw_xy(x, y);
+
+                        
+
+                        fetch(API_URL)
+                            .then((response) => {
+                                response.json().then(world => {
+                                    for(let i = 0; i < world.land.length; i++) {
+                                        draw_xy(world.land[i].x, world.land[i].y, '#f5f5dc');
+
+                                    }
+
+                                    for(let i = 0; i < world.water.length; i++) {
+                                        draw_xy(world.water[i].x, world.water[i].y, 'blue');
+
+                                    }
+                                }
+                                )
+
                             }
-                        }
+                            )
+                                    
                     </script>
                 </canvas>
                 
