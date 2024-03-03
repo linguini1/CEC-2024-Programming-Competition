@@ -18,14 +18,22 @@ The challenge requires both an optimal algorithm and a visualization that is eas
 
 **Language:** Python 3.11
 
-All Python application requirements are listed in the [requirements.txt](./requirements.txt) file.
+All Python dependencies are listed in the [requirements.txt](./requirements.txt) file.
 
 ## Quickstart
+
+**This quick start guide assumes you have already installed Python 3.11 or greater from the
+[Python website](https://www.python.org/downloads/)**
+
+**It also assumes that you have clone this project repository from GitHub.**
 
 To start the UI and computation, follow these steps:
 
 - Open your terminal within the project's root directory.
+  - You can open it in the file explorer on Windows and type `cmd` in the file explorer's file path bar if you are not
+    familiar with opening the terminal and using `cd` to navigate directories.
 - Install the project dependencies using `pip install -r requirements.txt`.
+  - Note that the `pip install` command may be different on Unix based operating systems. You may need to use `pip3`.
 - Run the main application using `py app.py` on Windows, or `python3 app.py` on Linux.
 - After a few seconds, you should see an output similar to the following:
 
