@@ -10,7 +10,6 @@
 </head>
 
 <body>
-
     <main>
         <div class="main-container">
             <div class="grid-box">
@@ -64,6 +63,9 @@
                         ctx.strokeStyle = "#000000";
                         ctx.fillStyle = "#FF0000";
 
+                        /**
+                        * Fetches the land and water coordinates from the API and draws them on the canvas.
+                        */
                         async function draw_land_and_water() {
                             let world = await fetch(WORLD_URL)
                                 .then((response) => {
@@ -77,6 +79,11 @@
                             }
                         }
 
+                        /**
+                        * Fetches the drill data for the given day and draws the drills on the canvas.
+                        * Also updates the statistics display with the total drill statistics.
+                        * @param day The day to fetch the drill data for.
+                        */
                         async function draw_drill_get_stats(day) {
                             let drills = await fetch(DRILL_URL.replace("1", day.toString())).then((response) => {
                                 return response.json();
@@ -103,6 +110,11 @@
 
                         }
 
+                        /**
+                        * Fetches the coral resource coordinates for the given day and draws the coral over top of the 
+                        * current map.
+                        * @param day The day to fetch the coral coordinates for.
+                        */
                         async function draw_coral(day) {
                             let coral = await fetch(CORAL_URL.replace("1", day.toString()))
                                 .then((response) => {
@@ -113,6 +125,11 @@
                             }
                         }
 
+                        /**
+                        * Fetches the oil resource coordinates for the given day and draws the oil over top of the 
+                        * current map.
+                        * @param day The day to fetch the oil coordinates for.
+                        */
                         async function draw_oil(day) {
                             let oil = await fetch(OIL_URL.replace("1", day.toString()))
                                 .then((response) => {
@@ -123,6 +140,9 @@
                             }
                         }
 
+                        /**
+                        * Increments the current day, redrawing the map state and updating statistics.
+                        */
                         async function next_day() {
                             day = (day + 1) % MAX_DAYS;
                             await draw_land_and_water();
@@ -132,11 +152,9 @@
                             document.getElementById("which-day").textContent = `Day ${day}`;
                         }
 
-                        next_day();
-
+                        next_day(); // Initial call to next_day() upon load
                     </script>
                 </canvas>
-
             </div>
 
 
@@ -180,10 +198,7 @@
                 <div class="buttons-box">
                     <button class="next-btn" onclick="next_day()">Next Day</button>
                 </div>
-
-
             </div>
         </div>
 </body>
-
 </html>
