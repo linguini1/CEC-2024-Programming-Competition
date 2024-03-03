@@ -11,7 +11,7 @@ The challenge requires both an optimal algorithm and a visualization that is eas
 
 - Grant Achuzia
 - Matteo Golin
-- Hamnah Quereshi
+- Hamnah Qureshi
 - Hetarthi Soni
 
 ## Requirements
